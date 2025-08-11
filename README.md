@@ -75,6 +75,7 @@ Create a `.env` file in the project root:
 
 ```
 GOOGLE_API_KEY=your_gemini_api_key
+MODEL_PATH=your models folder path
 ```
 
 Make sure `.env` is in `.gitignore`.
