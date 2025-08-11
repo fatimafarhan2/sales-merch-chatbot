@@ -1,3 +1,5 @@
+---
+
 # Sales Merchandise Chatbot (Flipkart 20K Dataset)
 
 An AI-powered chatbot for fashion merchandise that delivers accurate, context-aware responses from a **20,000-product Flipkart dataset**.
@@ -26,8 +28,10 @@ sales-bot/
 │   │   └── build_index.py       # Builds FAISS index from dataset
 │   ├── chatbot/
 │   │   └── bot.py               # LangGraph workflow & bot logic
-├── data/
-│   └── your_cleaned_dataset.csv # Flipkart dataset (20K products)
+├── data/                        # Place cleaned dataset here (not included in repo)
+│   └── your_cleaned_dataset.csv
+├── models/                      # Place downloaded SentenceTransformer model here (not included in repo)
+│   └── models--sentence-transformers--all-MiniLM-L6-v2
 ├── .env                         # API keys (not committed to Git)
 ├── requirements.txt             # Python dependencies
 ```
@@ -45,6 +49,24 @@ It includes categories such as:
 * Flipkart Advantage products
 * And more…
 
+⚠️ **Dataset is not included in this repository** due to size limits. You must download it from Kaggle and place it in the `data/` folder.
+
+---
+
+## Models
+
+The project uses the **SentenceTransformer model**:
+[`all-MiniLM-L6-v2`](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)
+
+⚠️ **Model files are not included** due to size limits.
+Download the model and place it in:
+
+```
+models/models--sentence-transformers--all-MiniLM-L6-v2/
+```
+
+Ensure your `build_index.py` and `bot.py` scripts point to the correct local model path.
+
 ---
 
 ## Environment Variables
@@ -54,6 +76,8 @@ Create a `.env` file in the project root:
 ```
 GOOGLE_API_KEY=your_gemini_api_key
 ```
+
+Make sure `.env` is in `.gitignore`.
 
 ---
 
@@ -80,10 +104,10 @@ venv\Scripts\activate     # Windows
 pip install -r requirements.txt
 ```
 
-4. **Download & place dataset**
+4. **Download dataset & model**
 
-* Download from [Kaggle](https://www.kaggle.com/datasets/PromptCloudHQ/flipkart-products)
-* Save the cleaned CSV in `data/your_cleaned_dataset.csv`
+* **Dataset:** Download from [Kaggle](https://www.kaggle.com/datasets/PromptCloudHQ/flipkart-products) → place in `data/`
+* **Model:** Download from [Hugging Face](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2) → place in `models/`
 
 5. **Build FAISS index**
 
@@ -94,8 +118,6 @@ python -m app.vectorstore.build_index
 ---
 
 ## Running the Chatbot
-
-Launch the chatbot with:
 
 ```bash
 python -m app.main
@@ -111,8 +133,6 @@ uvicorn app.main:app --reload
 
 ## Running Evaluation
 
-To test retrieval accuracy, run:
-
 ```bash
 python -m app.evaluate
 ```
@@ -120,8 +140,6 @@ python -m app.evaluate
 ---
 
 ## Evaluation Results
-
-Tested on 5 benchmark queries:
 
 * **Retrieval Accuracy:** 100%
 * **Average Response Time:** \~3 seconds
